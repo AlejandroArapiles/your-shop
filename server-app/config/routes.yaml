@@ -1,0 +1,15 @@
+insertProducto:
+    path: /insert/producto
+    controller: App\Controller\ProductoController::insertProducto
+
+insertTienda:
+    path: /insert/tienda
+    controller: App\Controller\TiendaController::insertTienda
+
+insertUsuario:
+    path: /insert/usuario
+    controller: App\Controller\UsuarioController::insertUsuario
+
+insertSesion:
+    path: /insert/sesion
+    controller: App\Controller\SesionController::insertSesion
