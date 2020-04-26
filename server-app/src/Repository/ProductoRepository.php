@@ -19,6 +19,17 @@ class ProductoRepository extends ServiceEntityRepository
         parent::__construct($registry, Producto::class);
     }
 
+    public function findAllByIdTiendaAndNombreProducto($idTienda, $nombre) {
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.nombreproducto like :nombre')
+        ->andWhere('p.idtiendaFk = :idTienda')
+        ->setParameter('nombre', '%' . $nombre .'%')
+        ->setParameter('idTienda', $idTienda)
+        ->orderBy('p.idproducto', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Producto[] Returns an array of Producto objects
     //  */

@@ -1,15 +1,43 @@
+listProducto:
+    path: /list/producto/{idTienda}
+    controller:  App\Controller\ProductoController::listarProductos
+    methods: GET
+
+verProducto:
+    path: /view/producto/{idProducto}
+    controller: App\Controller\ProductoController::verProducto
+    methods: GET
+
+eliminarProducto:
+    path: /delete/producto/{idProducto}
+    controller: App\Controller\ProductoController::eliminarProducto
+    methods: DELETE
+
+modificarProducto:
+    path: /modify/producto/{idProducto}
+    controller: App\Controller\ProductoController::modificarProducto
+    methods: POST
+
 insertProducto:
     path: /insert/producto
     controller: App\Controller\ProductoController::insertProducto
 
-insertTienda:
-    path: /insert/tienda
-    controller: App\Controller\TiendaController::insertTienda
+modificarTienda:
+    path: /modify/tienda/{idTienda}
+    controller: App\Controller\TiendaController::modificarTienda
 
 insertUsuario:
     path: /insert/usuario
     controller: App\Controller\UsuarioController::insertUsuario
 
-insertSesion:
-    path: /insert/sesion
-    controller: App\Controller\SesionController::insertSesion
+listUsuario:
+    path: /list/usuario
+    controller: App\Controller\UsuarioController::listUsuario
+    
+loginUser:
+    path: /login
+    controller: App\Controller\SesionController::iniciarSesion
+
+logoutUser:
+    path: /logout
+    controller: App\Controller\SesionController:cerrarSesion

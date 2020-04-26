@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Tienda
@@ -18,6 +19,7 @@ class Tienda
      * @ORM\Column(name="idTienda", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"public"})
      */
     private $idtienda;
 
@@ -25,6 +27,7 @@ class Tienda
      * @var string
      *
      * @ORM\Column(name="NombreTienda", type="string", length=45, nullable=false)
+     * @Groups({"public"})
      */
     private $nombretienda;
 
@@ -32,6 +35,7 @@ class Tienda
      * @var string
      *
      * @ORM\Column(name="CIF", type="string", length=9, nullable=false)
+     * @Groups({"public"})
      */
     private $cif;
 
@@ -39,6 +43,7 @@ class Tienda
      * @var string|null
      *
      * @ORM\Column(name="CorreoContacto", type="string", length=45, nullable=true)
+     * @Groups({"public"})
      */
     private $correocontacto;
 

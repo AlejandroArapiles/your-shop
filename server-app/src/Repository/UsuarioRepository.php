@@ -19,6 +19,16 @@ class UsuarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Usuario::class);
     }
 
+    public function comprobarUsuario($nombre, $password)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.nombreusuario = :nombre')
+            ->andWhere('u.password = :password')
+            ->setParameter('nombre', $nombre)
+            ->setParameter('password', md5($password))
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     // /**
     //  * @return Usuario[] Returns an array of Usuario objects
     //  */

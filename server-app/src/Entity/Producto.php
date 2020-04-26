@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Producto
@@ -18,20 +19,31 @@ class Producto
      * @ORM\Column(name="idProducto", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"public"})
      */
     private $idproducto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NombreProducto", type="string", length=100, nullable=false)
+     * @ORM\Column(name="NombreProducto", type="string", length=255, nullable=false)
+     * @Groups({"public"})
      */
     private $nombreproducto;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="Descripcion", type="string", length=500, nullable=true)
+     * @Groups({"public"})
+     */
+    private $descripcion;
 
     /**
      * @var int|null
      *
      * @ORM\Column(name="Cantidad", type="integer", nullable=true)
+     * @Groups({"public"})
      */
     private $cantidad = '0';
 
@@ -39,6 +51,7 @@ class Producto
      * @var string
      *
      * @ORM\Column(name="Precio", type="decimal", precision=20, scale=2, nullable=false)
+     * @Groups({"public"})
      */
     private $precio;
 
@@ -46,6 +59,7 @@ class Producto
      * @var int|null
      *
      * @ORM\Column(name="Activo", type="integer", nullable=true, options={"default"="1"})
+     * @Groups({"public"})
      */
     private $activo = '1';
 
@@ -56,6 +70,7 @@ class Producto
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idTienda_FK", referencedColumnName="idTienda")
      * })
+     * @Groups({"public"})
      */
     private $idtiendaFk;
 
@@ -72,6 +87,18 @@ class Producto
     public function setNombreproducto(string $nombreproducto): self
     {
         $this->nombreproducto = $nombreproducto;
+
+        return $this;
+    }
+
+    public function getDescripcion(): ?string
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion(?string $descripcion): self
+    {
+        $this->descripcion = $descripcion;
 
         return $this;
     }

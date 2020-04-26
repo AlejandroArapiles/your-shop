@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sesion
@@ -18,6 +20,7 @@ class Sesion
      * @ORM\Column(name="idSesion", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"public"})
      */
     private $idsesion;
 
@@ -25,6 +28,7 @@ class Sesion
      * @var string
      *
      * @ORM\Column(name="Sesion", type="string", length=60, nullable=false)
+     * @Groups({"public"})
      */
     private $sesion;
 
@@ -35,8 +39,18 @@ class Sesion
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUsuario_FK", referencedColumnName="idUsuario")
      * })
+     * @Groups({"public"})
      */
     private $idusuarioFk;
+
+    /**
+     * @var string
+     *
+     * @Assert\DateTime
+     * @ORM\Column(name="lastLogin", type="datetime", nullable=false)
+     * @Groups({"public"})
+     */
+    private $lastLogin;
 
     public function getIdsesion(): ?int
     {
@@ -67,5 +81,16 @@ class Sesion
         return $this;
     }
 
+    public function getLastlogin(): ?\DateTime
+    {
+       return $this->lastLogin;
+    }
+
+    public function setLastlogin(\DateTime $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
 
 }
