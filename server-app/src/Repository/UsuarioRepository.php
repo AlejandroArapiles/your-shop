@@ -29,6 +29,18 @@ class UsuarioRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllByIdTiendaAndNombreUsuario($idTienda, $nombre) {
+        return $this->createQueryBuilder('u')
+        ->andWhere('u.nombreusuario like :nombre')
+        ->andWhere('u.idtiendaFk = :idTienda')
+        ->setParameter('nombre', '%' . $nombre .'%')
+        ->setParameter('idTienda', $idTienda)
+        ->orderBy('u.idusuario', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Usuario[] Returns an array of Usuario objects
     //  */

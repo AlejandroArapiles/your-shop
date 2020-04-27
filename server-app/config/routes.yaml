@@ -28,11 +28,27 @@ modificarTienda:
 
 insertUsuario:
     path: /insert/usuario
-    controller: App\Controller\UsuarioController::insertUsuario
+    controller: App\Controller\UsuarioController::insertarUsuario
 
 listUsuario:
-    path: /list/usuario
-    controller: App\Controller\UsuarioController::listUsuario
+    path: /list/usuario/{idTienda}
+    controller: App\Controller\UsuarioController::listarUsuario
+
+eliminarUsuario:
+    path: /delete/usuario/{idUsuario}
+    controller: App\Controller\UsuarioController::eliminarUsuario
+
+modificarUsuario:
+    path: /modify/usuario/{idUsuario}
+    controller: App\Controller\UsuarioController:modificarUsuario
+
+modificarPerfil:
+    path: /modify/perfil/{idUsuario}
+    controller: App\Controller\UsuarioController:modificarPerfil
+
+verPerfil:
+    path: /viewProfile/usuario
+    controller: App\Controller\UsuarioController:verPerfil
     
 loginUser:
     path: /login
