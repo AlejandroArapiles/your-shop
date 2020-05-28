@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,20 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AuthAbstractController;
 
-class UsuarioController extends AbstractController
+class UsuarioController extends AuthAbstractController
 {
-     /** @var EntityManagerInterface $entityManager */
-     private $entityManager;
-
-     /** @var SerializerInterface $serializer */
-     private $serializer;
-
-     public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer) {
-        $this->entityManager = $entityManager;
-        $this->serializer = $serializer;
-    }
 
     public function registrarUsuarioTienda(Request $request) {
 
@@ -30,6 +20,7 @@ class UsuarioController extends AbstractController
 
     public function listarUsuario(Request $request, int $idTienda) :JsonResponse
     {
+        $this->validarMd5($request, $idTienda);
         $nombre = $request->query->get("nombre");
         if (isset($nombre) && !empty($nombre)) {
             $usuarios = $this->getDoctrine()->getRepository(Usuario::class)->findAllByIdTiendaAndNombreUsuario($idTienda, $nombre);

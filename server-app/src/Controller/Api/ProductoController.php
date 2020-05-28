@@ -1,28 +1,17 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\Tienda;
 use App\Entity\Producto;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ProductoController extends AbstractController
+class ProductoController extends AuthAbstractController
 {
-
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
-
-    /** @var SerializerInterface $serializer */
-    private $serializer;
-
-    public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer) {
-        $this->entityManager = $entityManager;
-        $this->serializer = $serializer;
-    }
 
     /**
      * inserta un producto en la tienda perteneciente al usuario logado.
@@ -54,6 +43,7 @@ class ProductoController extends AbstractController
      */
     public function listarProductos(Request $request, $idTienda)
     {
+        $this->validarMd5($request, $idTienda);
         $nombre = $request->query->get("nombre");
         if (isset($nombre) && !empty($nombre)) {
             $productos = $this->getDoctrine()->getRepository(Producto::class)->findAllByIdTiendaAndNombreProducto($idTienda, $nombre);

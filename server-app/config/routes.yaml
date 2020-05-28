@@ -1,59 +1,111 @@
+# Api rutas
 listProducto:
-    path: /list/producto/{idTienda}
-    controller:  App\Controller\ProductoController::listarProductos
+    path: /api/list/producto/{idTienda}
+    controller:  App\Controller\Api\ProductoController::listarProductos
     methods: GET
 
 verProducto:
-    path: /view/producto/{idProducto}
-    controller: App\Controller\ProductoController::verProducto
+    path: /api/view/producto/{idProducto}
+    controller: App\Controller\Api\ProductoController::verProducto
     methods: GET
 
 eliminarProducto:
-    path: /delete/producto/{idProducto}
-    controller: App\Controller\ProductoController::eliminarProducto
+    path: /api/delete/producto/{idProducto}
+    controller: App\Controller\Api\ProductoController::eliminarProducto
     methods: DELETE
 
 modificarProducto:
-    path: /modify/producto/{idProducto}
-    controller: App\Controller\ProductoController::modificarProducto
+    path: /api/modify/producto/{idProducto}
+    controller: App\Controller\Api\ProductoController::modificarProducto
     methods: POST
 
 insertProducto:
-    path: /insert/producto
-    controller: App\Controller\ProductoController::insertProducto
+    path: /api/insert/producto
+    controller: App\Controller\Api\ProductoController::insertProducto
 
 modificarTienda:
-    path: /modify/tienda/{idTienda}
-    controller: App\Controller\TiendaController::modificarTienda
+    path: /api/modify/tienda/{idTienda}
+    controller: App\Controller\Api\TiendaController::modificarTienda
 
 insertUsuario:
-    path: /insert/usuario
-    controller: App\Controller\UsuarioController::insertarUsuario
+    path: /api/insert/usuario
+    controller: App\Controller\Api\UsuarioController::insertarUsuario
 
 listUsuario:
-    path: /list/usuario/{idTienda}
-    controller: App\Controller\UsuarioController::listarUsuario
+    path: /api/list/usuario/{idTienda}
+    controller: App\Controller\Api\UsuarioController::listarUsuario
 
 eliminarUsuario:
-    path: /delete/usuario/{idUsuario}
-    controller: App\Controller\UsuarioController::eliminarUsuario
+    path: /api/delete/usuario/{idUsuario}
+    controller: App\Controller\Api\UsuarioController::eliminarUsuario
 
 modificarUsuario:
-    path: /modify/usuario/{idUsuario}
-    controller: App\Controller\UsuarioController:modificarUsuario
+    path: /api/modify/usuario/{idUsuario}
+    controller: App\Controller\Api\UsuarioController:modificarUsuario
 
 modificarPerfil:
-    path: /modify/perfil/{idUsuario}
-    controller: App\Controller\UsuarioController:modificarPerfil
+    path: /api/modify/perfil/{idUsuario}
+    controller: App\Controller\Api\UsuarioController:modificarPerfil
 
 verPerfil:
-    path: /viewProfile/usuario
-    controller: App\Controller\UsuarioController:verPerfil
+    path: /api/viewProfile/usuario
+    controller: App\Controller\Api\UsuarioController:verPerfil
     
 loginUser:
-    path: /login
-    controller: App\Controller\SesionController::iniciarSesion
+    path: /api/login
+    controller: App\Controller\Api\SesionController::iniciarSesion
 
 logoutUser:
-    path: /logout
-    controller: App\Controller\SesionController:cerrarSesion
+    path: /api/logout
+    controller: App\Controller\Api\SesionController:cerrarSesion
+
+# Cliente rutas
+clientListProductos:
+    path: /client/list/producto/{idTienda}
+    controller:  App\Controller\Client\ProductoController::listarProductos
+    methods: GET
+
+clientCreateProducto:
+    path: /client/create/producto
+    controller:  App\Controller\Client\ProductoController::crearProducto
+    methods: GET|POST
+
+clientViewProducto:
+    path: /client/view/producto/{idProducto}
+    controller:  App\Controller\Client\ProductoController::verProducto
+    methods: GET
+
+clientListUsuarios:
+    path: /client/list/usuario/{idTienda}
+    controller:  App\Controller\Client\UsuarioController::listarUsuarios
+    methods: GET   
+
+clientModifyTienda:
+    path: /client/modify/tienda/{idTienda}
+    controller:  App\Controller\Client\TiendaController::modificarTienda
+    methods: GET|POST 
+    
+clientCreateUsuario:
+    path: /client/create/usuario
+    controller:  App\Controller\Client\UsuarioController::crearUsuario
+    methods: GET|POST
+
+clientViewUsuario:
+    path: /client/view/usuario/{idUsuario}
+    controller:  App\Controller\Client\UsuarioController::verUsuario
+    methods: GET
+
+clientModifyPerfil:
+    path: /client/modify/perfil/{idUsuario}
+    controller:  App\Controller\Client\UsuarioController::modificarPerfil
+    methods: GET|POST
+
+clientLogin:
+    path: /client/login
+    controller:  App\Controller\Client\AuthController::iniciarSesion
+    methods: GET|POST
+
+clientLogout:
+    path: /client/logout
+    controller:  App\Controller\Client\AuthController::cerrarSesion
+    methods: POST

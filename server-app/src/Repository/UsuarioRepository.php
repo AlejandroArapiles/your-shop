@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Usuario;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Usuario|null find($id, $lockMode = null, $lockVersion = null)
@@ -39,6 +40,17 @@ class UsuarioRepository extends ServiceEntityRepository
         ->orderBy('u.idusuario', 'ASC')
         ->getQuery()
         ->getResult();
+    }
+
+    public function findOneByMd5AndIdTienda($md5, $idTienda) {
+        return $this->createQueryBuilder('u')
+        ->innerJoin("App\Entity\Sesion", "s", 'WITH', "u.idusuario = s.idusuarioFk")
+        ->andWhere('s.sesion = :md5')
+        ->andWhere('u.idtiendaFk = :idTienda')
+        ->setParameter('md5', $md5)
+        ->setParameter('idTienda', $idTienda)
+        ->getQuery()
+        ->getOneOrNullResult();
     }
 
     // /**

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+        </div>
+        <div class="card-body">
+            
+            <form class="user col-xl-8" method="post">
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="nombre">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" 
+                value="{{ (producto is defined and producto.nombreproducto is defined) ? producto.nombreproducto }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="descripcion">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">{{ (producto is defined and producto.descripcion is defined) ? producto.descripcion }}</textarea>
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="precio">Precio</label>
+                <input type="text" class="form-control" name="precio" id="precio" placeholder="x,xx€"
+                value="{{ (producto is defined and producto.precio is defined) ? producto.precio }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad"
+                value="{{ (producto is defined and producto.cantidad is defined) ? producto.cantidad }}">
+            </div>
+            <div class="form-group">
+            <h6 class="h6 text-gray-900 mb-4">Activo</h6>
+                <div class="form-group">
+                    <label class="radio-inline" for="radioActivoSi">
+                        <input type="radio" name="activo" id="radioActivoSi" 
+                        value="1" {{ (producto is defined and producto.isactivo) ? 'checked' }}>Sí
+                    </label>
+                    <label class="radio-inline" for="radioActivoNo">
+                        <input type="radio" name="activo" id="radioActivoNo" 
+                        value="0" {{ (producto is defined and not producto.isactivo) ? 'checked' }}>No
+                    </label>
+                </div>
+            </div>
+            <hr/>
+            <button type="submit" class="btn btn-primary btn-user">
+                Añadir producto
+            </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

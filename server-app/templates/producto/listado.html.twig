@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block contentHeader %}
+{{ parent() }}
+<a href="{{ path('clientCreateProducto') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+<i class="fas fa-plus fa-sm text-white-50"></i> Añadir producto</a>
+{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr class="text-center">
+                <th>Id producto</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for producto in productos %}
+            <tr class="text-center">
+                <td>{{ producto.idproducto }}</td>
+                <td>{{ producto.nombreproducto }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.precio }} €</td>
+                <td><a class="btn btn-primary" href="{{ path('clientViewProducto', {'idProducto': producto.idproducto}) }}">Ver producto</a> </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

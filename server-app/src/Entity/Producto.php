@@ -139,6 +139,11 @@ class Producto
         return $this;
     }
 
+    public function isActivo()
+    {
+        return (boolean)$this->activo;
+    }
+
     public function getIdtiendaFk(): ?Tienda
     {
         return $this->idtiendaFk;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\Sesion;
 use App\Entity\Usuario;
@@ -47,6 +47,8 @@ class SesionController extends AbstractController
 
             return new JsonResponse(["data" => $session]);
         }
+
+        return new JsonResponse(["result" => "Usuario no encontrado"]);
     }
 
     /**

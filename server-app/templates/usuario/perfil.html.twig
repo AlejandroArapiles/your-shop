@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+        </div>
+        <div class="card-body">
+            <form class="user col-xl-8" method="post">
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="nombre">Nombre</label>
+                <input type="text" class="form-control" readonly id="nombre" placeholder="Nombre"
+                value="{{ (usuario is defined and usuario.nombreusuario is defined) ? usuario.nombreusuario }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="password">Nueva contraseña</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="checkPassword">Repetir nueva contraseña</label>
+                <input type="password" class="form-control" name="checkPassword" id="checkPassword">
+            </div>
+            <hr/>
+            {% if notification is defined %}
+            {% include 'helper/notification.html.twig' %}
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary btn-user">
+               Modificar perfil
+            </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

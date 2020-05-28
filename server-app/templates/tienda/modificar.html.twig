@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tienda</h6>
+        </div>
+        <div class="card-body">
+            
+            <form class="user col-xl-8" method="post">
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="nombre">Nombre de la tienda</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" 
+                value="{{ (tienda is defined and tienda.nombretienda is defined) ? tienda.nombretienda }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="cif">CIF</label>
+                <input type="text" class="form-control" id="cif" name="cif" maxlength="9" placeholder="A12345678" 
+                value="{{ (tienda is defined and tienda.cif is defined) ? tienda.cif }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="correo">Correo de contacto</label>
+                <input type="email" class="form-control" id="correo" name="correocontacto" placeholder="email@example.com" 
+                value="{{ (tienda is defined and tienda.correocontacto is defined) ? tienda.correocontacto }}">
+            </div>
+            <hr/>
+            <button type="submit" class="btn btn-primary btn-user">
+                Modificar tienda
+            </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

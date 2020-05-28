@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block contentHeader %}
+{{ parent() }}
+<a href="{{ path('clientCreateUsuario') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+<i class="fas fa-plus fa-sm text-white-50"></i> Añadir usuario</a>
+{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id usuario</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for usuario in usuarios %}
+            <tr class="text-center">
+                <td>{{ usuario.idusuario }}</td>
+                <td>{{ usuario.nombreusuario }}</td>
+                <td>{{ usuario.rol }}</td>
+                <td><a class="btn btn-primary" href="{{ path('clientViewUsuario', {'idUsuario': usuario.idusuario}) }}">Ver usuario</a> </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

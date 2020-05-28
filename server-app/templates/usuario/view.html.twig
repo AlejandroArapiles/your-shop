@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+        </div>
+        <div class="card-body">
+            <form class="user col-xl-8" method="post">
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="nombre">Nombre</label>
+                <input type="text" class="form-control " name="nombre" id="nombre" placeholder="Nombre"
+                value="{{ (usuario is defined and usuario.nombreusuario is defined) ? usuario.nombreusuario }}">
+            </div>
+            <div class="form-group">
+                <label class="h6 text-gray-900 mb-4" for="password">Contraseña</label>
+                <input type="password" class="form-control " name"password" id="password" placeholder="Contraseña"
+                value="{{ (usuario is defined and usuario.password is defined) ? usuario.password }}">
+            </div>
+            <div class="form-group">
+            <h6 class="h6 text-gray-900 mb-4">Rol</h6>
+                <div class="form-group">
+                    <label class="radio-inline" for="radioActivoEmpleado">
+                        <input type="radio" name="rol" id="radioActivoEmpleado" 
+                        value="emple" {{ (usuario is defined and usuario.rol == 'emple') ? 'checked' }} checked>Empleado
+                    </label>
+                    <label class="radio-inline" for="radioActivoAdmin">
+                        <input type="radio" name="rol" id="radioActivoAdmin" 
+                        value="admin" {{ (usuario is defined and usuario.rol == 'admin') ? 'checked' }}>Administrador
+                    </label>
+                </div>
+            </div>
+            <hr/>
+            <button type="submit" class="btn btn-primary btn-user">
+                Añadir usuario
+            </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

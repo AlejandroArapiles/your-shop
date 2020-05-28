@@ -1,0 +1,28 @@
+<li class="nav-item">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducto" aria-expanded="true" aria-controls="collapseTwo">
+    <i class="fas fa-fw fa-box-open"></i>
+    <span>Producto</span>
+</a>
+<div id="collapseProducto" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+    <a class="collapse-item" href="{{ path('clientListProductos', {'idTienda' : 1}) }}">Listar productos</a>
+    <a class="collapse-item" href="{{ path('clientCreateProducto')}}">Crear producto</a>
+    </div>
+</div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('clientModifyPerfil', {'idUsuario' : 9})}}">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Modificar perfil</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="charts.html">
+        <i class="fas fa-fw fa-info"></i>
+        <span>Ayuda</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="charts.html">
+        <i class="fas fa-fw fa-sign-out-alt"></i>
+        <span>Cerrar sesión</span></a>
+</li>
