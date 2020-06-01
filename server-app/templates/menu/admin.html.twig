@@ -5,13 +5,13 @@
 </a>
 <div id="collapseProducto" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-    <a class="collapse-item" href="{{ path('clientListProductos', {'idTienda' : 1}) }}">Listar productos</a>
+    <a class="collapse-item" href="{{ path('clientListProductos', {'idTienda' : app.session.get('user')['idTienda']})  }}">Listar productos</a>
     <a class="collapse-item" href="{{ path('clientCreateProducto')}}">Crear producto</a>
     </div>
 </div>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('clientModifyTienda', {'idTienda': 1}) }}">
+    <a class="nav-link" href="{{ path('clientModifyTienda', {'idTienda' : app.session.get('user')['idTienda']}) }}">
         <i class="fas fa-fw fa-store"></i>
         <span>Modificar tienda</span></a>
 </li>
@@ -24,23 +24,23 @@
 </a>
 <div id="collapseUsuario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-    <a class="collapse-item" href="{{ path('clientListUsuarios', {'idTienda' : 1})}}">Listar usuarios</a>
+    <a class="collapse-item" href="{{ path('clientListUsuarios', {'idTienda' : app.session.get('user')['idTienda']}) }}">Listar usuarios</a>
     <a class="collapse-item" href="{{ path('clientCreateUsuario')}}">Crear usuario</a>
     </div>
 </div>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('clientModifyPerfil', {'idUsuario' : 9})}}">
+    <a class="nav-link" href="{{ path('clientModifyPerfil', {'idUsuario' : app.session.get('user')['idUsuario']})}}">
         <i class="fas fa-fw fa-user"></i>
         <span>Modificar perfil</span></a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ path('clientMostrarAyuda') }}">
         <i class="fas fa-fw fa-info"></i>
         <span>Ayuda</span></a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ path('clientLogout')}}">
         <i class="fas fa-fw fa-sign-out-alt"></i>
         <span>Cerrar sesión</span></a>
 </li>

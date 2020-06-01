@@ -73,7 +73,7 @@ clientCreateProducto:
 clientViewProducto:
     path: /client/view/producto/{idProducto}
     controller:  App\Controller\Client\ProductoController::verProducto
-    methods: GET
+    methods: GET|POST
 
 clientListUsuarios:
     path: /client/list/usuario/{idTienda}
@@ -93,7 +93,7 @@ clientCreateUsuario:
 clientViewUsuario:
     path: /client/view/usuario/{idUsuario}
     controller:  App\Controller\Client\UsuarioController::verUsuario
-    methods: GET
+    methods: GET|POST
 
 clientModifyPerfil:
     path: /client/modify/perfil/{idUsuario}
@@ -108,4 +108,16 @@ clientLogin:
 clientLogout:
     path: /client/logout
     controller:  App\Controller\Client\AuthController::cerrarSesion
-    methods: POST
+    methods: GET
+
+clientMostrarAyuda:
+    path: /client/ayuda
+    controller:  App\Controller\Client\HelpController::mostrarAyuda
+    methods: GET
+
+clientRegistro:
+    path: /client/registrar
+    controller:  App\Controller\Client\UsuarioController::registrarTienda
+    methods: GET|POST
+
+

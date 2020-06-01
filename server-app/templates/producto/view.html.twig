@@ -42,7 +42,7 @@
             </div>
             <hr/>
             <button type="submit" class="btn btn-primary btn-user">
-                Añadir producto
+                {{(app.request.attributes.has('idProducto')) ? 'Modificar' : 'Añadir'}} producto
             </button>
             </form>
         </div>

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <h3>FAQ</h3>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">¿Cómo creo un producto?</h6>
+        </div>
+        <div class="card-body">
+            <p>Desde el menú puedes pinchar en producto y luego en crear producto.
+            También puedes ir directamente pinchando en <a href="{{ path('clientCreateProducto') }}">Crear producto</a></p>
+        </div>
+    </div>
+
+    {% if app.session.get('user')['rol'] == 'admin' %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">¿Cómo creo un usuario?</h6>
+        </div>
+        <div class="card-body">
+           <p>Desde el menú puedes pinchar en usuario y luego en crear usuario.
+            También puedes ir directamente pinchando en <a href="{{ path('clientCreateUsuario') }}">Crear usuario</a></p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">¿Cómo modificar mi contraseña?</h6>
+        </div>
+        <div class="card-body">
+            <p>Desde modificar perfil en el menú, o pinchando en 
+            <a href="{{ path('clientModifyPerfil', {'idUsuario' : app.session.get('user')['idUsuario']})}}">Modificar perfil</a> </p>
+        </div>
+    </div>
+    
+    {% if app.session.get('user')['rol'] == 'admin' %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">¿Cómo modifico un usuario?</h6>
+        </div>
+        <div class="card-body">
+           <p>Desde el menú puedes pinchar en usuario y luego en listar usuarios, cada uno de ellos tendrá un botón de ver usuario, pinchas ahí y podrás modificar sus datos.
+            Desde aquí puedes acceder al listado <a href="{{ path('clientListUsuarios', {'idTienda' :app.session.get('user')['idTienda']})}}">Modificar usuario</a></p>
+        </div>
+    </div>
+    {% endif %}
+
+   {% if app.session.get('user')['rol'] == 'admin' %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">¿Cómo modifico un producto?</h6>
+        </div>
+        <div class="card-body">
+           <p>Desde el menú puedes pinchar en producto y luego en listar productos, cada uno de ellos tendrá un botón de ver producto, pinchas ahí y podrás modificar sus datos.
+            Desde aquí puedes acceder al listado <a href="{{ path('clientListProductos', {'idTienda' :app.session.get('user')['idTienda']})}}">Modificar producto</a></p>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

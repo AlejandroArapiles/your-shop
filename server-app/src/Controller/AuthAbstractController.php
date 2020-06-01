@@ -20,7 +20,7 @@ abstract class AuthAbstractController extends AbstractController
      protected $serializer;
 
      /** @var AuthService $authService*/
-     private $authService;
+     protected $authService;
 
      public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer, AuthService $authService) {
         $this->entityManager = $entityManager;

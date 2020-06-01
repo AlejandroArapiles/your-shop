@@ -18,7 +18,16 @@
                   </div>
                   <form class="user" method="post">
                     <div class="form-group">
-                      <input type="text" name="usuario" class="form-control form-control-user" id="usuario" placeholder="Nombre de usuario">
+                      <input type="text" name="nTienda" class="form-control form-control-user" id="nTienda" placeholder="Nombre de tienda">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" name="cif" class="form-control form-control-user" id="cif" placeholder="CIF (A12345678)">
+                    </div>
+                    <div class="form-group">
+                      <input type="email" name="correo" class="form-control form-control-user" id="correo" placeholder="ejemplo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" name="nUsuario" class="form-control form-control-user" id="usuario" placeholder="Nombre de usuario">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Contraseña">
@@ -27,13 +36,10 @@
                         {% include 'helper/notification.html.twig' %}
                     {% endif %}
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Iniciar sesión
+                      Registrar
                     </button>
                     <hr>
-
-                  <div class="d-flex justify-content-center">
-                  <a href="{{ path('clientRegistro') }}" class="btn btn-user btn-primary">Registrarse</a>
-                  </div>
+                  
                 </div>
               </div>
             </div>

@@ -4,38 +4,38 @@ namespace App\Controller\Client;
 
 use App\Entity\Sesion;
 use App\Entity\Usuario;
+use App\Service\AuthService;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AuthController extends AbstractController {
+class AuthController extends AuthAbstractController {
 
     /** @var SessionInterface $sessionManager */
     private $sessionManager;
 
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $sessionManager)
-    {
-        $this->sessionManager = $sessionManager;
+    public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer,
+    AuthService $authService, SessionInterface $sessionManager) {
         $this->entityManager = $entityManager;
+        $this->serializer = $serializer;
+        $this->authService = $authService;
+        $this->sessionManager = $sessionManager;
     }
 
-    public function cerrarSesion($idSesion)
+
+    public function cerrarSesion()
     {
-        // $sesion = $this->getDoctrine()->getRepository(Sesion::class)->findOneBySesion$this->sessionManager->get('user')['sesion']);
-        // if (isset($sesion)) {
-        //     $this->entityManager->remove($sesion);
-        //     $this->entityManager->flush();
-            //$this->sessionManager->invalidate();
-        //     return new JsonResponse(['result' => 'ok']);
-        // }
-        return $this->render('sesion/modificar.html.twig', [
-            //'tienda' => $tienda
-        ]);
+        $sesion = $this->getDoctrine()->getRepository(Sesion::class)->findOneBySesion($this->sessionManager->get('user')['sesion']);
+        if (isset($sesion)) {
+            $this->entityManager->remove($sesion);
+            $this->entityManager->flush();
+            $this->sessionManager->invalidate();
+        }
+        
+        return $this->redirectToRoute('clientLogin');
     }
 
     public function iniciarSesion(Request $request)
@@ -46,23 +46,7 @@ class AuthController extends AbstractController {
             $password = $request->request->get('password');
             $user = $this->getDoctrine()->getRepository(Usuario::class)->comprobarUsuario($usuario, $password);
             if (isset($user)) {
-                $sesion = new Sesion();
-                $sesion->setIdusuarioFk($user);
-                $sesion->setSesion(md5(time()));
-                $sesion->setLastLogin(new \DateTime());
-                $this->entityManager->persist($sesion);
-                $this->entityManager->flush();
-                
-                //$session = new Session();
-               // $session->start();
-
-                $this->sessionManager->set('user', [
-                    "idUsuario" => $user->getIdusuario(),
-                    "rol" => $user->getRol(),
-                    "nombre" => $user->getNombreusuario(),
-                    "sesion" => $sesion->getSesion(),
-                    "idTienda" => $user->getIdTiendaFk()->getIdtienda()
-                ]);
+                $this->authService->login($user);
                 return $this->redirectToRoute('clientListProductos', ['idTienda' => $user->getIdTiendaFk()->getIdtienda()]);
             } else {
                 $notification = ["type"=> "danger", "message" => "El usuario y/o contraseña no coinciden."];
