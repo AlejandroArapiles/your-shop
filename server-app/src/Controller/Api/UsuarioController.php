@@ -2,19 +2,40 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Tienda;
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use App\Controller\AuthAbstractController;
 
 class UsuarioController extends AuthAbstractController
 {
 
     public function registrarUsuarioTienda(Request $request) {
+        if ($request->getMethod() == 'POST') {
+            $datos = json_decode($request->getContent());
+            $tienda = new Tienda();
+            $tienda->setNombretienda($datos->nombreTienda);
+            $tienda->setCif($datos->cif);
+            $tienda->setCorreoContacto($datos->correo);
+            $this->entityManager->persist($tienda);
+
+            $usuario = new Usuario();
+            $usuario->setNombreusuario($datos->nombreUsuario);
+            $usuario->setPassword(md5($datos->password));
+            $usuario->setRol('admin');
+            $usuario->setIdtiendaFk($tienda);
+
+            $this->entityManager->persist($usuario);
+            $this->entityManager->flush();
+        
+            $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
+            return new JsonResponse(['data' => $usuario]);
+        }
 
     }
 
