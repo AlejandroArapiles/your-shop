@@ -34,7 +34,7 @@ class UsuarioController extends AuthAbstractController
             $this->entityManager->flush();
         
             $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
-            return new JsonResponse(['data' => $usuario]);
+            return new JsonResponse($usuario);
         }
 
     }
@@ -49,23 +49,25 @@ class UsuarioController extends AuthAbstractController
             $usuarios = $this->getDoctrine()->getRepository(Usuario::class)->findBy(["idtiendaFk" => $idTienda]);
         }
         $usuarios = $this->serializer->normalize($usuarios, null, ["groups" => "public"]);
-        return new JsonResponse(['data' => $usuarios]);
+        return new JsonResponse($usuarios);
     }
 
     public function insertarUsuario(Request $request)
     {
-        $usuario = new Usuario();
         $datos = json_decode($request->getContent());
+        $idTienda = $datos->tienda;
+        $this->validarMd5($request, $idTienda);
+        $usuario = new Usuario();
         $usuario->setNombreUsuario($datos->nombre);
         $usuario->setRol($datos->rol);
         $usuario->setPassword(md5($datos->password));
-        $usuario->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $datos->tienda));
+        $usuario->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $idTienda));
         
         $this->entityManager->persist($usuario);
         $this->entityManager->flush();
         
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
-        return new JsonResponse(['data' => $usuario]);
+        return new JsonResponse($usuario);
     }
 
     public function eliminarUsuario(int $idUsuario)
@@ -115,13 +117,23 @@ class UsuarioController extends AuthAbstractController
         return new JsonResponse(['result' => 'No existe']);
     }
 
+    public function verUsuario($idUsuario)
+    {
+        if (isset($idUsuario) && !empty($idUsuario)) {
+            $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        }
+        $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
+        return new JsonResponse([$usuario]);
+    }
+
     public function verPerfil(Request $request)
     {
+        //TODO coger idUsuario desde el token
         $idUsuario = $request->query->get("idusuario");
         if (isset($idUsuario) && !empty($idUsuario)) {
             $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         }
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
-        return new JsonResponse(['data' => $usuario]);
+        return new JsonResponse($usuario);
     }
 }

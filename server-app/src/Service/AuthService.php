@@ -46,6 +46,11 @@ class AuthService {
         return $this->entityManager->getRepository(Usuario::class)->findOneByMd5AndIdTienda($md5, $idTienda);
     }
 
+    public function validateMd5ByIdUsuario($md5, $idUsuario) :?Usuario
+    {
+        return $this->entityManager->getRepository(Usuario::class)->findOneByMd5AndIdTienda($md5, $idTienda);
+    }
+
     public function validateUserLogged()
     {
         return $this->sessionManager->has('user') ? true: false;

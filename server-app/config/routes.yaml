@@ -22,42 +22,57 @@ modificarProducto:
 insertProducto:
     path: /api/insert/producto
     controller: App\Controller\Api\ProductoController::insertProducto
-
-modificarTienda:
-    path: /api/modify/tienda/{idTienda}
-    controller: App\Controller\Api\TiendaController::modificarTienda
-
-insertUsuario:
-    path: /api/insert/usuario
-    controller: App\Controller\Api\UsuarioController::insertarUsuario
+    methods: POST
 
 listUsuario:
     path: /api/list/usuario/{idTienda}
     controller: App\Controller\Api\UsuarioController::listarUsuario
+    methods: GET
+
+verUsuario:
+    path: /api/view/usuario/{idUsuario}
+    controller: App\Controller\Api\UsuarioController::verUsuario
+    methods: GET
 
 eliminarUsuario:
     path: /api/delete/usuario/{idUsuario}
     controller: App\Controller\Api\UsuarioController::eliminarUsuario
+    methods: DELETE
 
 modificarUsuario:
     path: /api/modify/usuario/{idUsuario}
-    controller: App\Controller\Api\UsuarioController:modificarUsuario
+    controller: App\Controller\Api\UsuarioController::modificarUsuario
+    methods: POST
+
+insertUsuario:
+    path: /api/insert/usuario
+    controller: App\Controller\Api\UsuarioController::insertarUsuario
+    methods: POST
+
+modificarTienda:
+    path: /api/modify/tienda/{idTienda}
+    controller: App\Controller\Api\TiendaController::modificarTienda
+    methods: POST
 
 modificarPerfil:
     path: /api/modify/perfil/{idUsuario}
     controller: App\Controller\Api\UsuarioController:modificarPerfil
+    methods: POST
 
 verPerfil:
     path: /api/viewProfile/usuario
     controller: App\Controller\Api\UsuarioController:verPerfil
-    
+    methods: GET
+
 loginUser:
     path: /api/login
     controller: App\Controller\Api\SesionController::iniciarSesion
+    methods: POST
 
 logoutUser:
     path: /api/logout
     controller: App\Controller\Api\SesionController:cerrarSesion
+    methods: POST
 
 # Cliente rutas
 clientListProductos:
@@ -80,11 +95,6 @@ clientListUsuarios:
     controller:  App\Controller\Client\UsuarioController::listarUsuarios
     methods: GET   
 
-clientModifyTienda:
-    path: /client/modify/tienda/{idTienda}
-    controller:  App\Controller\Client\TiendaController::modificarTienda
-    methods: GET|POST 
-    
 clientCreateUsuario:
     path: /client/create/usuario
     controller:  App\Controller\Client\UsuarioController::crearUsuario
@@ -93,6 +103,11 @@ clientCreateUsuario:
 clientViewUsuario:
     path: /client/view/usuario/{idUsuario}
     controller:  App\Controller\Client\UsuarioController::verUsuario
+    methods: GET|POST
+
+clientModifyTienda:
+    path: /client/modify/tienda/{idTienda}
+    controller:  App\Controller\Client\TiendaController::modificarTienda
     methods: GET|POST
 
 clientModifyPerfil:
@@ -119,5 +134,3 @@ clientRegistro:
     path: /client/registrar
     controller:  App\Controller\Client\UsuarioController::registrarTienda
     methods: GET|POST
-
-

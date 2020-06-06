@@ -33,7 +33,9 @@ class ProductoController extends AuthAbstractController
         $this->entityManager->persist($producto);
         $this->entityManager->flush();
 
-        return new JsonResponse(['mensaje' => 'Saved new product with id '.$producto->getIdproducto()]);
+        $producto = $this->serializer->normalize($producto, null, ["groups" => "public"]);
+
+        return new JsonResponse($producto);
     }
     
     /**
@@ -51,7 +53,7 @@ class ProductoController extends AuthAbstractController
             $productos = $this->getDoctrine()->getRepository(Producto::class)->findBy(["idtiendaFk" => $idTienda]);
         }
         $productos = $this->serializer->normalize($productos, null, ["groups" => "public"]);
-        return new JsonResponse(['data' => $productos]);
+        return new JsonResponse($productos);
     }
 
     /** 
@@ -63,7 +65,7 @@ class ProductoController extends AuthAbstractController
     {
         $producto = $this->getDoctrine()->getRepository(Producto::class)->findByIdproducto($idProducto);
         $producto = $this->serializer->normalize($producto, null, ["groups" => "public"]);
-        return new JsonResponse(['data' => $producto]);
+        return new JsonResponse($producto);
     }
 
     /**
