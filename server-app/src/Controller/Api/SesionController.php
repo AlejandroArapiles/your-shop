@@ -45,10 +45,10 @@ class SesionController extends AbstractController
             $this->entityManager->flush();
             $session = $this->serializer->normalize($session, null, ["groups" => "public"]);
 
-            return new JsonResponse(["data" => $session]);
+            return new JsonResponse($session);
         }
 
-        return new JsonResponse(["result" => "Usuario no encontrado"]);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -63,25 +63,9 @@ class SesionController extends AbstractController
         if (isset($sesion)) {
             $this->entityManager->remove($sesion);
             $this->entityManager->flush();
-            
-            return new JsonResponse(['result' => 'ok']);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
-    }
-
-    public function insertSesion(Request $request)
-    {
-        $sesion = new Sesion();
-        $datos = json_decode($request->getContent());
-        $sesion->setSesion(md5($datos->sesion));
-        $sesion->setLastLogin(new \DateTime("now"));
-        $sesion->setIdusuarioFk($entityManager->getReference('App\Entity\Usuario', $datos->usuario));
-
-        $entityManager->persist($sesion);
-        $entityManager->flush();
-
-        return new Response('Saved new session with md5 '.$sesion->getSesion());
     }
 }

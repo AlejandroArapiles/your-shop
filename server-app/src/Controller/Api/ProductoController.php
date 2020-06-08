@@ -7,6 +7,7 @@ use App\Entity\Producto;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -28,7 +29,7 @@ class ProductoController extends AuthAbstractController
         $producto->setCantidad($datos->cantidad);
         $producto->setPrecio($datos->precio);
         $producto->setActivo($datos->activo);
-        $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $datos->tienda));
+        $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $datos->idtiendaFk->idtienda));
 
         $this->entityManager->persist($producto);
         $this->entityManager->flush();
@@ -79,10 +80,10 @@ class ProductoController extends AuthAbstractController
             $this->entityManager->remove($producto);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            return new JsonResponse(null, Response::HTTP_OK);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -103,10 +104,11 @@ class ProductoController extends AuthAbstractController
             $this->entityManager->persist($producto);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            $producto = $this->serializer->normalize($producto, null, ["groups" => "public"]);
+            return new JsonResponse($producto, Response::HTTP_OK);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
 }

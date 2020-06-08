@@ -8,14 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TiendaController extends AbstractController
 {
     private $entityManager;
+    private $serializer;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer) {
         $this->entityManager = $entityManager;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -33,10 +36,12 @@ class TiendaController extends AbstractController
             $this->entityManager->persist($tienda);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            $tienda = $this->serializer->normalize($tienda, null, ["groups" => "public"]);
+
+            return new JsonResponse($tienda);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
 }

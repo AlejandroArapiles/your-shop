@@ -55,7 +55,7 @@ class UsuarioController extends AuthAbstractController
     public function insertarUsuario(Request $request)
     {
         $datos = json_decode($request->getContent());
-        $idTienda = $datos->tienda;
+        $idTienda = $datos->idtiendaFk->idtienda;
         $this->validarMd5($request, $idTienda);
         $usuario = new Usuario();
         $usuario->setNombreUsuario($datos->nombre);
@@ -77,10 +77,10 @@ class UsuarioController extends AuthAbstractController
             $this->entityManager->remove($usuario);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            return new JsonResponse(null, Response::HTTP_OK);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     public function modificarUsuario(Request $request, int $idUsuario)
@@ -95,10 +95,12 @@ class UsuarioController extends AuthAbstractController
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
+
+            return new JsonResponse($usuario, Response::HTTP_OK);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     public function modificarPerfil(Request $request, int $idUsuario)
@@ -111,10 +113,10 @@ class UsuarioController extends AuthAbstractController
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
             
-            return new JsonResponse(['result' => 'ok']);
+            return new JsonResponse($usuario, Response::HTTP_OK);
         }
         
-        return new JsonResponse(['result' => 'No existe']);
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
     public function verUsuario($idUsuario)
@@ -123,7 +125,7 @@ class UsuarioController extends AuthAbstractController
             $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         }
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
-        return new JsonResponse([$usuario]);
+        return new JsonResponse($usuario);
     }
 
     public function verPerfil(Request $request)
