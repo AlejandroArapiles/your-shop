@@ -89,7 +89,7 @@ class UsuarioController extends AuthAbstractController
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             $usuario->setNombreusuario($datos->nombreusuario);
-            if (!empty($datos->password) {
+            if (!empty($datos->password)) {
                 $usuario->setPassword(md5($datos->password));
             }
             $usuario->setRol($datos->rol);
@@ -110,7 +110,9 @@ class UsuarioController extends AuthAbstractController
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
-            $usuario->setPassword(md5($datos->password));
+            if (!empty($datos->password)) {
+                $usuario->setPassword(md5($datos->password));
+            }
         
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
