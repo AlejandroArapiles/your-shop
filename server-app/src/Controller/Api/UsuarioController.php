@@ -58,7 +58,7 @@ class UsuarioController extends AuthAbstractController
         $idTienda = $datos->idtiendaFk->idtienda;
         $this->validarMd5($request, $idTienda);
         $usuario = new Usuario();
-        $usuario->setNombreUsuario($datos->nombre);
+        $usuario->setNombreUsuario($datos->nombreusuario);
         $usuario->setRol($datos->rol);
         $usuario->setPassword(md5($datos->password));
         $usuario->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $idTienda));
