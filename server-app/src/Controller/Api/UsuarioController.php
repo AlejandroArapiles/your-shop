@@ -89,7 +89,9 @@ class UsuarioController extends AuthAbstractController
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             $usuario->setNombreusuario($datos->nombreusuario);
-            $usuario->setPassword(md5($datos->password));
+            if (!empty($datos->password) {
+                $usuario->setPassword(md5($datos->password));
+            }
             $usuario->setRol($datos->rol);
             
             $this->entityManager->persist($usuario);
