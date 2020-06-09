@@ -58,7 +58,7 @@ class UsuarioController extends AuthAbstractController
         $idTienda = $datos->idtiendaFk->idtienda;
         $this->validarMd5($request, $idTienda);
         $usuario = new Usuario();
-        $usuario->setNombreUsuario($datos->nombre);
+        $usuario->setNombreUsuario($datos->nombreusuario);
         $usuario->setRol($datos->rol);
         $usuario->setPassword(md5($datos->password));
         $usuario->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $idTienda));
@@ -89,7 +89,9 @@ class UsuarioController extends AuthAbstractController
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             $usuario->setNombreusuario($datos->nombreusuario);
-            $usuario->setPassword(md5($datos->password));
+            if (!empty($datos->password)) {
+                $usuario->setPassword(md5($datos->password));
+            }
             $usuario->setRol($datos->rol);
             
             $this->entityManager->persist($usuario);
@@ -108,7 +110,9 @@ class UsuarioController extends AuthAbstractController
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
-            $usuario->setPassword(md5($datos->password));
+            if (!empty($datos->password)) {
+                $usuario->setPassword(md5($datos->password));
+            }
         
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
