@@ -29,7 +29,7 @@ class TiendaController extends AbstractController
         $tienda = $this->getDoctrine()->getRepository(Tienda::class)->findOneByIdtienda($idTienda);
         if (isset($tienda)) {
             $datos = json_decode($request->getContent());
-            $tienda->setNombretienda($datos->nombre);
+            $tienda->setNombretienda($datos->nombretienda);
             $tienda->setCif($datos->cif);
             $tienda->setCorreocontacto($datos->correocontacto);
 
