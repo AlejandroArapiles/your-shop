@@ -24,12 +24,14 @@ class ProductoController extends AuthAbstractController
     {
         $producto = new Producto();
         $datos = json_decode($request->getContent());
+        $idTienda = $datos->idtiendaFk->idtienda;
+        $this->validarMd5($request, $idTienda);
         $producto->setNombreproducto($datos->nombreproducto);
         $producto->setDescripcion($datos->descripcion);
         $producto->setCantidad($datos->cantidad);
         $producto->setPrecio($datos->precio);
         $producto->setActivo($datos->activo);
-        $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $datos->idtiendaFk->idtienda));
+        $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $idTienda));
 
         $this->entityManager->persist($producto);
         $this->entityManager->flush();
