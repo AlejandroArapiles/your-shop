@@ -19,7 +19,7 @@ class UsuarioController extends AuthAbstractController
         if ($request->getMethod() == 'POST') {
             $datos = json_decode($request->getContent());
             $tienda = new Tienda();
-            $tienda->setNombretienda($datos->idtiendaFk->nombre);
+            $tienda->setNombretienda($datos->idtiendaFk->nombretienda);
             $tienda->setCif($datos->idtiendaFk->cif);
             $tienda->setCorreoContacto($datos->idtiendaFk->correocontacto);
             $this->entityManager->persist($tienda);
