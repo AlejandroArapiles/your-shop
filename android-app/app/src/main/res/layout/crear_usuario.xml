@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:id="@+id/layoutCrearUsuario"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvNombreUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombreU"/>
+        <EditText
+            android:id="@+id/etNombreUsuario"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passwordU"/>
+        <EditText
+            android:id="@+id/etPassword"
+            android:inputType="textPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvRol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rolU"/>
+        <Spinner
+            android:id="@+id/spRol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/bCrearUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="crearUsuario"
+            android:text="@string/crearUsuario"/>
+
+</LinearLayout>

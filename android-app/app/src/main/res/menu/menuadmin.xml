@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuProducto" android:title="@string/producto">
+        <menu>
+            <item android:id="@+id/menuCrearProducto" android:title="@string/crearProducto"/>
+            <item android:id="@+id/menuListarProductos" android:title="@string/listarProductos"/>
+        </menu>
+    </item>
+    <item android:id="@+id/menuModificarTienda" android:title="@string/modificarTienda" />
+    <item android:id="@+id/menuUsuario" android:title="@string/usuario">
+        <menu>
+            <item android:id="@+id/menuListarUsuarios" android:title="@string/listarUsuarios"/>
+            <item android:id="@+id/menuCrearUsuario" android:title="@string/crearUsuario"/>
+        </menu>
+    </item>
+    <item android:id="@+id/menuModificarPerfil" android:title="@string/modificarPerfil"/>
+    <item android:id="@+id/menuAyuda" android:title="@string/ayuda" />
+    <item android:id="@+id/menuCerrarSesion" android:title="@string/cerrarSesion" />
+
+
+</menu>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutModificarProducto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNombreProductoMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreP" />
+
+    <EditText
+        android:id="@+id/etNombreProductoMP"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvDescripcionProductoMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descripcionP" />
+
+    <EditText
+        android:id="@+id/etDescripcionProductoMP"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvCantidadMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cantidadP" />
+
+    <EditText
+        android:id="@+id/etCantidadMP"
+        android:layout_width="250dp"
+        android:inputType="number"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvPrecioMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/precioP" />
+
+    <EditText
+        android:id="@+id/etPrecioMP"
+        android:layout_width="250dp"
+        android:inputType="numberDecimal"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:id="@+id/swActivoMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bModificarProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="modificarProducto"
+        android:text="@string/modificarProducto" />
+    <ImageView
+        android:id="@+id/ivEliminarProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="abrirDialogEliminarProducto"
+        android:background="@color/grey"
+        android:src="@mipmap/ic_delete"
+        />
+</LinearLayout>

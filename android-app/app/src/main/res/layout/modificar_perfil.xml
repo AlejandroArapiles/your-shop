@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutModificarPerfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNombreMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreU" />
+
+    <EditText
+        android:id="@+id/etNombreMP"
+        android:layout_width="250dp"
+        android:enabled="false"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvLastLoginMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lastLogin" />
+
+    <EditText
+        android:id="@+id/etLastLoginMP"
+        android:layout_width="250dp"
+        android:enabled="false"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvPasswordMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nuevaContraseña" />
+
+    <EditText
+        android:id="@+id/etPasswordMP"
+        android:layout_width="250dp"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvRepeatPasswordMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repetirContraseña" />
+
+    <EditText
+        android:id="@+id/etRepeatPasswordMP"
+        android:layout_width="250dp"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bModificarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="modificarPerfil"
+        android:text="@string/modificarPerfil" />
+</LinearLayout>

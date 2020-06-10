@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutModificarUsuario"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNombreMU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nombreU" />
+
+    <EditText
+        android:id="@+id/etNombreMU"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvPasswordMU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/passwordU" />
+
+    <EditText
+        android:id="@+id/etPasswordMU"
+        android:layout_width="250dp"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvRolMU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rolU" />
+
+    <Spinner
+        android:id="@+id/spRolMU"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bModificarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="modificarUsuario"
+        android:text="@string/modificarUsuario" />
+    <ImageView
+        android:id="@+id/ivEliminarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="abrirDialogEliminarUsuario"
+        android:background="@color/grey"
+        android:src="@mipmap/ic_delete"
+        />
+</LinearLayout>
