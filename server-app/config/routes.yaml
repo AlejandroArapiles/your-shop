@@ -1,4 +1,8 @@
 # Api rutas
+register:
+    path: /api/register
+    controller:  App\Controller\Api\UsuarioController::registrarUsuarioTienda
+    methods: POST
 listProducto:
     path: /api/list/producto/{idTienda}
     controller:  App\Controller\Api\ProductoController::listarProductos
