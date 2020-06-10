@@ -25,7 +25,7 @@ class UsuarioController extends AuthAbstractController
             $this->entityManager->persist($tienda);
 
             $usuario = new Usuario();
-            $usuario->setNombreusuario($datos->nombreUsuario);
+            $usuario->setNombreusuario($datos->nombreusuario);
             $usuario->setPassword(md5($datos->password));
             $usuario->setRol('admin');
             $usuario->setIdtiendaFk($tienda);
