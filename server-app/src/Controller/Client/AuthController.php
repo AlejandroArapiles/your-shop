@@ -40,6 +40,10 @@ class AuthController extends AuthAbstractController {
 
     public function iniciarSesion(Request $request)
     {
+        if ($request->getMethod() == 'GET' && $this->authService->validateUserLogged()) {
+            return $this->redirectToRoute("clientListProductos", ['idTienda' => $this->sessionManager->get("user")['idTienda']]);
+        }
+
         $notification = [];
         if ($request->getMethod() == 'POST' && !$this->sessionManager->isStarted()) {
             $usuario = $request->request->get('usuario');

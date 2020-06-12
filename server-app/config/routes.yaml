@@ -79,6 +79,13 @@ logoutUser:
     methods: POST
 
 # Cliente rutas
+home:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /client/login
+        permanent: true
+
 clientListProductos:
     path: /client/list/producto/{idTienda}
     controller:  App\Controller\Client\ProductoController::listarProductos
