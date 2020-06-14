@@ -97,5 +97,11 @@
         android:layout_height="wrap_content"
         android:text="@string/respuesta5"
         android:textSize="15sp" />
+    <Button
+        android:id="@+id/bSalirAyuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cambiarVistaListaProductos"
+        android:text="@string/salir" />
 </LinearLayout>
 

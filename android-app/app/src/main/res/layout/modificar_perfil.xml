@@ -59,4 +59,12 @@
         android:layout_height="wrap_content"
         android:onClick="modificarPerfil"
         android:text="@string/modificarPerfil" />
+
+    <Button
+        android:id="@+id/bCancelarModificarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cambiarVistaListaUsuarios"
+        android:text="@string/cancelar" />
+
 </LinearLayout>

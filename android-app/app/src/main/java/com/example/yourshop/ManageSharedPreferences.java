@@ -14,16 +14,29 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * Clase que gestiona la sesion en el SharedPreferences
+ */
 public class ManageSharedPreferences {
 
+    /**
+     * Atributos de ManageSharedPreferences
+     */
     public static final String SESION = "sesion";
     private SharedPreferences sharedPreferences;
 
+    /**
+     * Inicializa el objeto sharedPreferences
+     * @param context Context Contexto de la aplicación
+     */
     public ManageSharedPreferences(Context context) {
         sharedPreferences = context.getSharedPreferences(SESION, 0);
     }
 
+    /**
+     * Guarda la sesión en el SharedPreferences
+     * @param sesion Sesion Objeto Sesion con los datos de la misma
+     */
     public void guardarSesion(Sesion sesion) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("idusuario", sesion.getIdusuarioFk().getIdusuario());
@@ -36,12 +49,19 @@ public class ManageSharedPreferences {
         editor.apply();
     }
 
+    /**
+     * Elimina los datos de la sesión
+     */
     public void cerrarSesion() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
     }
 
+    /**
+     * Comprueba si la sesión está iniciada, actualizando además el lastlogin de este
+     * @return boolean Devuelve true si la sesión está iniciada sino false
+     */
     public boolean isSesionIniciada() {
         if (sharedPreferences.getInt("idusuario", 0) != 0) {
             long loginDate = sharedPreferences.getLong("sesionIniciada", System.currentTimeMillis());
@@ -55,10 +75,18 @@ public class ManageSharedPreferences {
         return false;
     }
 
+    /**
+     * Devuelve el nombre del usuario de la sesión
+     * @return String
+     */
     public String getNombreUsuario(){
         return sharedPreferences.getString("nombreusuario", "");
     }
 
+    /**
+     * Devuelve el lastlogin del usuario a la aplicación
+     * @return String
+     */
     public String getLastLogin() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault());
@@ -72,6 +100,10 @@ public class ManageSharedPreferences {
         return sharedPreferences.getString("lastlogin", "");
     }
 
+    /**
+     * Actualiza los datos de la tienda del usuario en el SharedPreferences
+     * @param tienda Tienda Objeto Tienda con sus nuevos datos
+     */
     public void setTienda(Tienda tienda) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("idtienda", tienda.getIdtienda());
@@ -81,10 +113,18 @@ public class ManageSharedPreferences {
         editor.apply();
     }
 
+    /**
+     * Devuelve el id de la tienda a la que pertenece el usuario de la sesión
+     * @return int
+     */
     public int getIdTienda() {
         return sharedPreferences.getInt("idtienda", 0);
     }
 
+    /**
+     * Devuelve la tienda a la que pertenece el usuario de la sesión
+     * @return Tienda
+     */
     public Tienda getTienda() {
         Tienda tienda = new Tienda();
         tienda.setIdtienda(sharedPreferences.getInt("idtienda", 0));
@@ -94,15 +134,26 @@ public class ManageSharedPreferences {
         return tienda;
     }
 
-
+    /**
+     * Devuelve el id del usuario de la sesión
+     * @return int
+     */
     public int getIdUsuario(){
         return sharedPreferences.getInt("idusuario", 0);
     }
 
+    /**
+     * Devuelve el MD5 de la sesión
+     * @return String
+     */
     public String getToken() {
         return sharedPreferences.getString("token", "");
     }
 
+    /**
+     * Comprueba si el usuario logado es admin o emple
+     * @return boolean Devuelve true si es administrador sino false
+     */
     public boolean isAdmin() {
         return sharedPreferences.getString("rol", "").equalsIgnoreCase("admin");
     }

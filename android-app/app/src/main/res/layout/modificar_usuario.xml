@@ -45,6 +45,14 @@
         android:layout_height="wrap_content"
         android:onClick="modificarUsuario"
         android:text="@string/modificarUsuario" />
+
+    <Button
+        android:id="@+id/bCancelarModificarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cambiarVistaListaUsuarios"
+        android:text="@string/cancelar" />
+
     <ImageView
         android:id="@+id/ivEliminarUsuario"
         android:layout_width="wrap_content"

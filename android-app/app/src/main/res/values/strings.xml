@@ -34,6 +34,8 @@
     <string name="registrar"><u>Registrarse</u></string>
     <string name="registro">Registrarse</string>
     <string name="ayuda">Ayuda</string>
+    <string name="salir">Salir</string>
+    <string name="cancelar">Cancelar</string>
     <string name="errorIniciarSesion">Inicia sesión o regístrate</string>
     <string name="errorLogin">Usuario o contraseña incorrectos</string>
     <string name="errorListado">No se ha podido mostrar el listado</string>
@@ -43,6 +45,8 @@
     <string name="errorModificar">Error al modificar</string>
     <string name="errorEliminar">Error al eliminar</string>
     <string name="errorRegistro">Error al registrarse</string>
+    <string name="errorLogout">Error al cerrar sesión</string>
+    <string name="errorContraseña">Las contraseñas no coinciden</string>
     <string name="crearProductoOK">Producto creado correctamente</string>
     <string name="crearUsuarioOK">Usuario creado correctamente</string>
     <string name="registroOK">Registro realizado correctamente</string>
@@ -64,7 +68,7 @@
     <string name="si">Sí</string>
     <string name="no">No</string>
     <string name="dialogUsuario">¿Seguro que quieres borrar este usuario?</string>
-    <string name="dialogProducto">¿Seguro que quieres borrar este usuario?</string>
+    <string name="dialogProducto">¿Seguro que quieres borrar este producto?</string>
     <string name="dialogCerrarSesion">¿Seguro que quieres cerrar sesión?</string>
     <string-array name="spinnerUsuario">
         <item>Empleado</item>

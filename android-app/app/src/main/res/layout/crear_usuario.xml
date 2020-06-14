@@ -39,5 +39,11 @@
             android:layout_height="wrap_content"
             android:onClick="crearUsuario"
             android:text="@string/crearUsuario"/>
+        <Button
+            android:id="@+id/bCancelarCrearUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cambiarVistaListaUsuarios"
+            android:text="@string/cancelar" />
 
 </LinearLayout>

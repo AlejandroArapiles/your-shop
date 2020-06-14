@@ -39,4 +39,10 @@
         android:layout_height="wrap_content"
         android:onClick="modificarTienda"
         android:text="@string/modificarTienda"/>
+    <Button
+        android:id="@+id/bCancelarModificarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cambiarVistaListaProductos"
+        android:text="@string/cancelar" />
 </LinearLayout>
