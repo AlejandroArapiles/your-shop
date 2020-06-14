@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Clase que contiene los métodos para buscar en la tabla Tienda
  * @method Tienda|null find($id, $lockMode = null, $lockVersion = null)
  * @method Tienda|null findOneBy(array $criteria, array $orderBy = null)
  * @method Tienda[]    findAll()
@@ -18,33 +19,4 @@ class TiendaRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tienda::class);
     }
-
-    // /**
-    //  * @return Tienda[] Returns an array of Tienda objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tienda
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

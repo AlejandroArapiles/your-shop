@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
+ * Clase que contiene los métodos para buscar en la tabla Usuario
  * @method Usuario|null find($id, $lockMode = null, $lockVersion = null)
  * @method Usuario|null findOneBy(array $criteria, array $orderBy = null)
  * @method Usuario[]    findAll()
@@ -20,6 +21,13 @@ class UsuarioRepository extends ServiceEntityRepository
         parent::__construct($registry, Usuario::class);
     }
 
+    /**
+     * Comprueba si un usuario existe
+     *
+     * @param String $nombre
+     * @param String $password
+     * @return void
+     */
     public function comprobarUsuario($nombre, $password)
     {
         return $this->createQueryBuilder('u')
@@ -31,6 +39,13 @@ class UsuarioRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * Filtra usuarios en función del id de la tienda y un texto (nombre de usuario)
+     *
+     * @param [type] $idTienda
+     * @param [type] $nombre
+     * @return void
+     */
     public function findAllByIdTiendaAndNombreUsuario($idTienda, $nombre) {
         return $this->createQueryBuilder('u')
         ->andWhere('u.nombreusuario like :nombre')
@@ -42,6 +57,13 @@ class UsuarioRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    /**
+     * Devuelve un usuario en función del md5 y de la tienda
+     *
+     * @param String $md5
+     * @param String $idTienda
+     * @return void
+     */
     public function findOneByMd5AndIdTienda($md5, $idTienda) {
         return $this->createQueryBuilder('u')
         ->innerJoin("App\Entity\Sesion", "s", 'WITH', "u.idusuario = s.idusuarioFk")
@@ -52,33 +74,4 @@ class UsuarioRepository extends ServiceEntityRepository
         ->getQuery()
         ->getOneOrNullResult();
     }
-
-    // /**
-    //  * @return Usuario[] Returns an array of Usuario objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Usuario
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

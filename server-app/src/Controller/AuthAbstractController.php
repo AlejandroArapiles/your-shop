@@ -10,7 +10,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-
+/**
+ * Clase que contiene validaciones a la hora de realizar operaciones
+ */
 abstract class AuthAbstractController extends AbstractController
 {
      /** @var EntityManagerInterface $entityManager */
@@ -28,6 +30,13 @@ abstract class AuthAbstractController extends AbstractController
         $this->authService = $authService;
     }
 
+    /**
+     * Comprueba que el usuario tiene sesión iniciada y que pertenece a la tienda en la cual quiere realizar operaciones
+     *
+     * @param Request $request
+     * @param integer $idTienda
+     * @return void
+     */
     public function validarMd5(Request $request, $idTienda) {
         $md5 = $request->query->get('token');
         if (isset($md5)) {

@@ -11,12 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * API
+ * Clase que interactúa con la tabla Producto en la base de datos
+ */
 class ProductoController extends AuthAbstractController
 {
 
     /**
      * inserta un producto en la tienda perteneciente al usuario logado.
-     *
      * @param Request $request
      * @return void
      */
@@ -42,7 +45,7 @@ class ProductoController extends AuthAbstractController
     }
     
     /**
-     * saca la lista de productos pertenecientes a la tienda la cual el usuario está logado. (Se añadirá filtro opcional por nombre de producto)
+     * saca la lista de productos pertenecientes a la tienda la cual el usuario está logado.
      *
      * @return void
      */
@@ -67,6 +70,7 @@ class ProductoController extends AuthAbstractController
     public function verProducto($idProducto) : JsonResponse
     {
         $producto = $this->getDoctrine()->getRepository(Producto::class)->findByIdproducto($idProducto);
+        $this->validarMd5($request, $producto->getIdtiendaFk()->getIdtienda());
         $producto = $this->serializer->normalize($producto, null, ["groups" => "public"]);
         return new JsonResponse($producto);
     }
@@ -78,6 +82,7 @@ class ProductoController extends AuthAbstractController
      */
     public function eliminarProducto($idProducto) {
         $producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($idProducto);
+        $this->validarMd5($request, $producto->getIdtiendaFk()->getIdtienda());
         if (isset($producto)) {
             $this->entityManager->remove($producto);
             $this->entityManager->flush();
@@ -95,6 +100,7 @@ class ProductoController extends AuthAbstractController
      */
     public function modificarProducto(Request $request, $idProducto) {
         $producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($idProducto);
+        $this->validarMd5($request, $producto->getIdtiendaFk()->getIdtienda());
         if (isset($producto)) {
             $datos = json_decode($request->getContent());
             $producto->setNombreProducto($datos->nombreproducto);

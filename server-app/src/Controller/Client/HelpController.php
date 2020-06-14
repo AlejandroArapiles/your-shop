@@ -11,6 +11,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * CLIENT
+ * Clase que muestra la ayuda en la aplicación cliente
+ */
 class HelpController extends AuthAbstractController {
 
     /** @var SessionInterface $sessionManager */
@@ -24,7 +28,11 @@ class HelpController extends AuthAbstractController {
         $this->sessionManager = $sessionManager;
     }
 
-    
+    /**
+     * Carga el código html que contiene la ayuda
+     *
+     * @return void
+     */
     public function mostrarAyuda(){
         return $this->render('help/ayuda.html.twig');
     }    

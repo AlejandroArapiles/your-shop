@@ -11,6 +11,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * CLIENT
+ * Clase que interactúa con la tabla Producto en la base de datos
+ */
 class ProductoController extends AuthAbstractController {
 
     /** @var SessionInterface $sessionManager */
@@ -24,7 +28,12 @@ class ProductoController extends AuthAbstractController {
         $this->sessionManager = $sessionManager;
     }
 
-
+    /**
+     * Lista los productos de la tienda a la que pertenece el usuario
+     *
+     * @param integer $idTienda
+     * @return void
+     */
     public function listarProductos($idTienda)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -40,6 +49,12 @@ class ProductoController extends AuthAbstractController {
         ]);
     }
 
+    /**
+     * Crea un producto a la tienda que el usuario está logado.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function crearProducto(Request $request)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -57,12 +72,19 @@ class ProductoController extends AuthAbstractController {
             $this->entityManager->persist($producto);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('clientViewProducto', ['idProducto' => $producto->getIdproducto()]);
+            return $this->redirectToRoute('clientListProductos', ['idTienda' => $producto->getIdTiendaFk()->getIdtienda()]);
         } else {
             return $this->render('producto/view.html.twig');
         }
     }
 
+    /**
+     * Lista la información de un producto recibiendo su id por parámetro
+     *
+     * @param Request $request
+     * @param inte $idProducto
+     * @return void
+     */
     public function verProducto(Request $request, $idProducto)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -82,6 +104,7 @@ class ProductoController extends AuthAbstractController {
 
             $this->entityManager->persist($producto);
             $this->entityManager->flush();
+            return $this->redirectToRoute('clientListProductos', ['idTienda' => $producto->getIdTiendaFk()->getIdtienda()]);
         }
         return $this->render('producto/view.html.twig', [
             'producto' => $producto

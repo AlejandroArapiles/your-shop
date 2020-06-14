@@ -9,12 +9,20 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+/**
+ * Página principal de la aplicación web 
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
+    /**
+     * Carga los bundles instalados de Symfony
+     *
+     * @return iterable
+     */
     public function registerBundles(): iterable
     {
         $contents = require $this->getProjectDir().'/config/bundles.php';
@@ -25,11 +33,23 @@ class Kernel extends BaseKernel
         }
     }
 
+    /**
+     * Coge el directorio base del proyecto
+     *
+     * @return string
+     */
     public function getProjectDir(): string
     {
         return \dirname(__DIR__);
     }
 
+    /**
+     * Configuración de dependencias
+     *
+     * @param ContainerBuilder $container
+     * @param LoaderInterface $loader
+     * @return void
+     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));

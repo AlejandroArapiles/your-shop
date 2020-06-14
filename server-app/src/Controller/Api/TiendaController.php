@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * API
+ * Clase que interactúa con la tabla Tienda en la base de datos
+ */
 class TiendaController extends AbstractController
 {
     private $entityManager;
@@ -22,11 +26,12 @@ class TiendaController extends AbstractController
     }
 
     /**
-     * un usuario (administrador) previamente logado podrá modificar datos de su tienda.
+     * un usuario (solo admin) previamente logado podrá modificar datos de su tienda.
      * @return void
      */
     public function modificarTienda(Request $request, $idTienda) {
         $tienda = $this->getDoctrine()->getRepository(Tienda::class)->findOneByIdtienda($idTienda);
+        $this->validarMd5($request, $idTienda);
         if (isset($tienda)) {
             $datos = json_decode($request->getContent());
             $tienda->setNombretienda($datos->nombretienda);

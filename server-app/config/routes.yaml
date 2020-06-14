@@ -143,5 +143,5 @@ clientMostrarAyuda:
 
 clientRegistro:
     path: /client/registrar
-    controller:  App\Controller\Client\UsuarioController::registrarTienda
+    controller:  App\Controller\Client\UsuarioController::registrarUsuarioTienda
     methods: GET|POST

@@ -12,6 +12,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * CLIENT
+ * Clase que interactúa con la tabla Usuario en la base de datos
+ */
 class UsuarioController extends AuthAbstractController {
 
      /** @var SessionInterface $sessionManager */
@@ -25,7 +29,12 @@ class UsuarioController extends AuthAbstractController {
         $this->sessionManager = $sessionManager;
     }
 
-    
+    /**
+     * Lista los usuarios de la tienda a la que pertenece el usuario. (solo admin)
+     *
+     * @param integer $idTienda Id de la tienda que lista los usuarios
+     * @return void
+     */
     public function listarUsuarios($idTienda)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -40,6 +49,12 @@ class UsuarioController extends AuthAbstractController {
         ]);
     }
 
+    /**
+     * Crea un usuario de la tienda a la que pertenece el usuario. (solo admin)
+     *
+     * @param Request $request
+     * @return void
+     */
     public function crearUsuario(Request $request){
         if (!$this->authService->validateUserLogged()) {
             return $this->redirectToRoute('clientLogin');
@@ -54,13 +69,19 @@ class UsuarioController extends AuthAbstractController {
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('clientViewUsuario', ['idUsuario' => $usuario->getIdusuario()]);
+            return $this->redirectToRoute('clientListUsuarios', ['idTienda' => $usuario->getIdTiendaFk()->getIdtienda()]);
         } else {
             return $this->render('usuario/view.html.twig');
         }
     }
 
-
+    /**
+     * Lista la información de un usuario recibiendo su id por parámetro. (solo admin)
+     *
+     * @param Request $request
+     * @param integer $idUsuario Id del usuario a listar información
+     * @return void
+     */
     public function verUsuario(Request $request, $idUsuario)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -74,18 +95,26 @@ class UsuarioController extends AuthAbstractController {
          if ($request->getMethod() == 'POST') {
             $usuario->setNombreusuario($request->request->get('nombre'));
             $usuario->setRol($request->request->get('rol'));
-            if ($request->request->has('password')) {
-                $usuario->setPassword(md5($request->request->get('password')));
+            if (!empty($request->request->get('password'))) {
+                $usuario->setPassword($request->request->get('password'));
             }
 
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
+            return $this->redirectToRoute('clientListUsuarios', ['idTienda' => $usuario->getIdTiendaFk()->getIdtienda()]);
         }
         return $this->render('usuario/view.html.twig', [
             'usuario' => $usuario
         ]);
     }
 
+    /**
+     * Modifica la contraseña del usuario logado recibiendo su id por parámetro
+     *
+     * @param Request $request
+     * @param integer $idUsuario Id del usuario a modificar la contraseña
+     * @return void
+     */
     public function modificarPerfil(Request $request, $idUsuario)
     {
         if (!$this->authService->validateUserLogged()) {
@@ -113,7 +142,13 @@ class UsuarioController extends AuthAbstractController {
         return $this->render('usuario/perfil.html.twig', $data);
     }
 
-    public function registrarTienda(Request $request)
+    /**
+     * Registra una nueva tienda añadiendo a esta un usuario admin
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function registrarUsuarioTienda(Request $request)
     {
         if ($request->getMethod() == 'POST') {
             $tienda = new Tienda();

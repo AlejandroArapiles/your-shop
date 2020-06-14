@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Clase que contiene los métodos para buscar en la tabla Sesion
  * @method Sesion|null find($id, $lockMode = null, $lockVersion = null)
  * @method Sesion|null findOneBy(array $criteria, array $orderBy = null)
  * @method Sesion[]    findAll()
@@ -19,32 +20,5 @@ class SesionRepository extends ServiceEntityRepository
         parent::__construct($registry, Sesion::class);
     }
 
-    // /**
-    //  * @return Sesion[] Returns an array of Sesion objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Sesion
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
 }

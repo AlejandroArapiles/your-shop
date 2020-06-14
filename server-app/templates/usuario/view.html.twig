@@ -9,12 +9,13 @@
             <form class="user col-xl-8" method="post">
             <div class="form-group">
                 <label class="h6 text-gray-900 mb-4" for="nombre">Nombre</label>
-                <input type="text" class="form-control " name="nombre" id="nombre" placeholder="Nombre"
+                <input type="text" class="form-control" name="nombre" id="nombre" minlength="3" required placeholder="Nombre"
                 value="{{ (usuario is defined and usuario.nombreusuario is defined) ? usuario.nombreusuario }}">
             </div>
             <div class="form-group">
                 <label class="h6 text-gray-900 mb-4" for="password">Contraseña</label>
-                <input type="password" class="form-control " name"password" id="password" placeholder="Contraseña">
+                <input type="password" class="form-control" name="password" id="password"  
+                {{ (usuario is defined and usuario.password is defined) ? '': 'required' }} placeholder="Contraseña">
             </div>
             <div class="form-group">
             <h6 class="h6 text-gray-900 mb-4">Rol</h6>

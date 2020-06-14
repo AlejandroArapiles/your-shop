@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * API
+ * Clase que interactúa con la tabla Sesion en la base de datos
+ */
 class SesionController extends AbstractController
 {
 
@@ -52,7 +56,7 @@ class SesionController extends AbstractController
     }
 
     /**
-     * cierra la sesión del usuario logado actualizando el lastLogin de este.
+     * cierra la sesión del usuario logado
      * @return void
      */
 
