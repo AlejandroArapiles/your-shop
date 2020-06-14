@@ -174,5 +174,25 @@ class UsuarioController extends AuthAbstractController {
 
     }
 
+     /**
+     * Elimina un usuario en la tienda la cual el usuario está logado. (solo admin)
+     *
+     * @param integer $idUsuario Id de usuario a eliminar
+     * @return void
+     */
+    public function eliminarUsuario(int $idUsuario)
+    {
+        if (!$this->authService->validateUserLogged()) {
+            return $this->redirectToRoute('clientLogin');
+        }
+        $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        if (isset($usuario)) {
+            $this->entityManager->remove($usuario);
+            $this->entityManager->flush();
+        }
+        
+        return $this->redirectToRoute('clientListUsuarios', ['idTienda' => $usuario->getIdTiendaFk()->getIdtienda()]);
+    }
+
    
 }

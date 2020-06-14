@@ -101,6 +101,7 @@ class UsuarioController extends AuthAbstractController
     public function eliminarUsuario(int $idUsuario)
     {
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        $this->validarMd5($request, $usuario->getIdtiendaFk()->getIdtienda());
         if (isset($usuario)) {
             $this->entityManager->remove($usuario);
             $this->entityManager->flush();
@@ -121,6 +122,7 @@ class UsuarioController extends AuthAbstractController
     public function modificarUsuario(Request $request, int $idUsuario)
     {
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             $usuario->setNombreusuario($datos->nombreusuario);
@@ -198,4 +200,6 @@ class UsuarioController extends AuthAbstractController
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
         return new JsonResponse($usuario);
     }
+
+    
 }

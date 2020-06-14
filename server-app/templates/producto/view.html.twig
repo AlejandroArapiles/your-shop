@@ -44,7 +44,14 @@
             <button type="submit" class="btn btn-primary btn-user">
                 {{(app.request.attributes.has('idProducto')) ? 'Modificar' : 'Añadir'}} producto
             </button>
+             {% if app.request.attributes.has('idProducto') %}
+            <a class="btn btn-danger btn-user deleteProduct" 
+                href="{{  path('clientDeleteProducto', {'idProducto': app.request.attributes.get('idProducto')})}}">
+                Eliminar producto
+            </a>
+            {% endif %}
             </form>
+
         </div>
     </div>
 

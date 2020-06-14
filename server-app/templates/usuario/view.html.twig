@@ -34,7 +34,12 @@
             <button type="submit" class="btn btn-primary btn-user">
                 {{(app.request.attributes.has('idUsuario')) ? 'Modificar' : 'Añadir'}} usuario
             </button>
-            </form>
+             {% if app.request.attributes.has('idUsuario') %}
+            <a class="btn btn-danger btn-user deleteUser" 
+                href="{{  path('clientDeleteUsuario', {'idUsuario': app.request.attributes.get('idUsuario')})}}">
+                Eliminar usuario
+            </a>
+           {% endif %}
         </div>
     </div>
 

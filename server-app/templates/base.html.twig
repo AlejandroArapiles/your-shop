@@ -96,12 +96,15 @@
     </div>
   </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
-  <!-- Datatables -->
-  <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
-<!-- <script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script> -->
+  {% block footerScripts %}
+     <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <!-- Datatables -->
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script> -->
+  {% endblock %}
+
 
 <script>
 $(document).ready(function() {

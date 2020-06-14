@@ -110,4 +110,23 @@ class ProductoController extends AuthAbstractController {
             'producto' => $producto
         ]);
     }
+
+    /**
+     * Elimina un producto por id que recibe por parámetro (solo admin)
+     *
+     * @param integer $idProducto
+     * @return void
+     */
+    public function eliminarProducto($idProducto) {
+        $producto = $this->getDoctrine()->getRepository(Producto::class)->findOneByIdproducto($idProducto);
+        if (!$this->authService->validateUserLogged()) {
+            return $this->redirectToRoute('clientLogin');
+        }
+        if (isset($producto)) {
+            $this->entityManager->remove($producto);
+            $this->entityManager->flush();
+        }
+        
+        return $this->redirectToRoute('clientListProductos', ['idTienda' => $producto->getIdTiendaFk()->getIdtienda()]);
+    }
 }

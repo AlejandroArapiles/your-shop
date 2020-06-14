@@ -101,6 +101,11 @@ clientViewProducto:
     controller:  App\Controller\Client\ProductoController::verProducto
     methods: GET|POST
 
+clientDeleteProducto:
+    path: /client/delete/producto/{idProducto}
+    controller:  App\Controller\Client\ProductoController::eliminarProducto
+    methods: GET
+
 clientListUsuarios:
     path: /client/list/usuario/{idTienda}
     controller:  App\Controller\Client\UsuarioController::listarUsuarios
@@ -115,6 +120,11 @@ clientViewUsuario:
     path: /client/view/usuario/{idUsuario}
     controller:  App\Controller\Client\UsuarioController::verUsuario
     methods: GET|POST
+
+clientDeleteUsuario:
+    path: /client/delete/usuario/{idUsuario}
+    controller:  App\Controller\Client\UsuarioController::eliminarUsuario
+    methods: GET
 
 clientModifyTienda:
     path: /client/modify/tienda/{idTienda}
