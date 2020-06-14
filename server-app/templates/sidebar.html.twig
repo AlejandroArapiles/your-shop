@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="d-flex align-items-center justify-content-center" href="/">
+      <a class="d-flex align-items-center justify-content-center" href="{{ path('clientListProductos', {'idTienda': app.session.get('user')['idTienda'] })}}">
         <div class="sidebar-brand-icon width-65">
           <img class="img-fluid" src="{{ asset('image/logo_transparent.png') }}"></img>
         </div>

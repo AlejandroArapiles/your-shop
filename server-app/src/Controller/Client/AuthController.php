@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * CLIENT
+ * Clase que interactúa con la tabla Sesión de la base de datos
+ */
 class AuthController extends AuthAbstractController {
 
     /** @var SessionInterface $sessionManager */
@@ -25,7 +29,11 @@ class AuthController extends AuthAbstractController {
         $this->sessionManager = $sessionManager;
     }
 
-
+    /**
+     * Cierra sesión del usuario logado cogiendo el id de la session
+     *
+     * @return void
+     */
     public function cerrarSesion()
     {
         $sesion = $this->getDoctrine()->getRepository(Sesion::class)->findOneBySesion($this->sessionManager->get('user')['sesion']);
@@ -38,8 +46,18 @@ class AuthController extends AuthAbstractController {
         return $this->redirectToRoute('clientLogin');
     }
 
+    /**
+     * Inicia sesión y comprueba que el usuario no tiene ninguna sesión iniciada
+     *
+     * @param Request $request
+     * @return void
+     */
     public function iniciarSesion(Request $request)
     {
+        if ($request->getMethod() == 'GET' && $this->authService->validateUserLogged()) {
+            return $this->redirectToRoute("clientListProductos", ['idTienda' => $this->sessionManager->get("user")['idTienda']]);
+        }
+
         $notification = [];
         if ($request->getMethod() == 'POST' && !$this->sessionManager->isStarted()) {
             $usuario = $request->request->get('usuario');
@@ -52,14 +70,6 @@ class AuthController extends AuthAbstractController {
                 $notification = ["type"=> "danger", "message" => "El usuario y/o contraseña no coinciden."];
             }
         }
-        
-        //$sesion = $this->getDoctrine()->getRepository(Sesion::class)->findByIdsesion($idTienda);
         return $this->render('login.html.twig', ['notification' => $notification]);
     }
-
-    public function registrarTiendaUsuario(Request $request){
-
-    }
-
-    
 }

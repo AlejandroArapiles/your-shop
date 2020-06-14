@@ -79,6 +79,13 @@ logoutUser:
     methods: POST
 
 # Cliente rutas
+home:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /client/login
+        permanent: true
+
 clientListProductos:
     path: /client/list/producto/{idTienda}
     controller:  App\Controller\Client\ProductoController::listarProductos
@@ -94,6 +101,11 @@ clientViewProducto:
     controller:  App\Controller\Client\ProductoController::verProducto
     methods: GET|POST
 
+clientDeleteProducto:
+    path: /client/delete/producto/{idProducto}
+    controller:  App\Controller\Client\ProductoController::eliminarProducto
+    methods: GET
+
 clientListUsuarios:
     path: /client/list/usuario/{idTienda}
     controller:  App\Controller\Client\UsuarioController::listarUsuarios
@@ -108,6 +120,11 @@ clientViewUsuario:
     path: /client/view/usuario/{idUsuario}
     controller:  App\Controller\Client\UsuarioController::verUsuario
     methods: GET|POST
+
+clientDeleteUsuario:
+    path: /client/delete/usuario/{idUsuario}
+    controller:  App\Controller\Client\UsuarioController::eliminarUsuario
+    methods: GET
 
 clientModifyTienda:
     path: /client/modify/tienda/{idTienda}
@@ -136,5 +153,5 @@ clientMostrarAyuda:
 
 clientRegistro:
     path: /client/registrar
-    controller:  App\Controller\Client\UsuarioController::registrarTienda
+    controller:  App\Controller\Client\UsuarioController::registrarUsuarioTienda
     methods: GET|POST

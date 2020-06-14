@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Clase que contiene los métodos para buscar en la tabla Producto
  * @method Producto|null find($id, $lockMode = null, $lockVersion = null)
  * @method Producto|null findOneBy(array $criteria, array $orderBy = null)
  * @method Producto[]    findAll()
@@ -19,6 +20,13 @@ class ProductoRepository extends ServiceEntityRepository
         parent::__construct($registry, Producto::class);
     }
 
+    /**
+     * Filtra los productos en función de la tienda y un texto (nombre del producto)
+     *
+     * @param integer $idTienda
+     * @param String $nombre
+     * @return void
+     */
     public function findAllByIdTiendaAndNombreProducto($idTienda, $nombre) {
         return $this->createQueryBuilder('p')
         ->andWhere('p.nombreproducto like :nombre')
@@ -29,33 +37,4 @@ class ProductoRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
-
-    // /**
-    //  * @return Producto[] Returns an array of Producto objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Producto
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

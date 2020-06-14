@@ -11,6 +11,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * CLIENT
+ * Clase que interactúa con la tabla Tienda en la base de datos
+ */
 class TiendaController extends AuthAbstractController {
 
     /** @var SessionInterface $sessionManager */
@@ -24,8 +28,13 @@ class TiendaController extends AuthAbstractController {
         $this->sessionManager = $sessionManager;
     }
 
-    
-
+    /**
+     * Modifica la tienda a la que pertenece el usuario (solo admin)
+     *
+     * @param Request $request
+     * @param integer $idTienda
+     * @return void
+     */
     public function modificarTienda(Request $request, $idTienda)
     {
         if (!$this->authService->validateUserLogged()) {

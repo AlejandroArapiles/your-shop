@@ -12,9 +12,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * API
+ * Clase que interactúa con la tabla Usuario en la base de datos
+ */
 class UsuarioController extends AuthAbstractController
 {
 
+    /**
+     * Registra una nueva tienda y asigna un usuario administrador a esta.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function registrarUsuarioTienda(Request $request) {
         if ($request->getMethod() == 'POST') {
             $datos = json_decode($request->getContent());
@@ -39,6 +49,13 @@ class UsuarioController extends AuthAbstractController
 
     }
 
+    /**
+     * Lista todos los usuarios de la tienda la cual el usuario está logado. (solo admin)
+     *
+     * @param Request $request 
+     * @param integer $idTienda Id de la tienda que lista los usuarios
+     * @return JsonResponse
+     */
     public function listarUsuario(Request $request, int $idTienda) :JsonResponse
     {
         $this->validarMd5($request, $idTienda);
@@ -51,7 +68,12 @@ class UsuarioController extends AuthAbstractController
         $usuarios = $this->serializer->normalize($usuarios, null, ["groups" => "public"]);
         return new JsonResponse($usuarios);
     }
-
+    /**
+     * Inserta un usuario en la tienda la cual el usuario está logado. (solo admin)
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function insertarUsuario(Request $request)
     {
         $datos = json_decode($request->getContent());
@@ -70,9 +92,16 @@ class UsuarioController extends AuthAbstractController
         return new JsonResponse($usuario);
     }
 
+    /**
+     * Elimina un usuario en la tienda la cual el usuario está logado. (solo admin)
+     *
+     * @param integer $idUsuario Id de usuario a eliminar
+     * @return void
+     */
     public function eliminarUsuario(int $idUsuario)
     {
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        $this->validarMd5($request, $usuario->getIdtiendaFk()->getIdtienda());
         if (isset($usuario)) {
             $this->entityManager->remove($usuario);
             $this->entityManager->flush();
@@ -83,9 +112,17 @@ class UsuarioController extends AuthAbstractController
         return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * Modifica un usuario en la tienda la cual el usuario está logado. (solo admin)
+     *
+     * @param Request $request
+     * @param integer $idUsuario Id de usuario a modificar
+     * @return void
+     */
     public function modificarUsuario(Request $request, int $idUsuario)
     {
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             $usuario->setNombreusuario($datos->nombreusuario);
@@ -105,9 +142,17 @@ class UsuarioController extends AuthAbstractController
         return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * Modifica la contraseña del usuario logado si coinciden las dos introducidas
+     *
+     * @param Request $request
+     * @param integer $idUsuario Id de usuario a modificar
+     * @return void
+     */
     public function modificarPerfil(Request $request, int $idUsuario)
     {
         $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
+        $this->validarMd5($request, $usuario->getIdtiendaFk()->getIdtienda());
         if (isset($usuario)) {
             $datos = json_decode($request->getContent());
             if (!empty($datos->password)) {
@@ -123,23 +168,38 @@ class UsuarioController extends AuthAbstractController
         return new JsonResponse(null, Response::HTTP_NOT_FOUND);
     }
 
-    public function verUsuario($idUsuario)
+    /**
+     * Lista la información de un usuario recibiendo su id por parámetro (solo admin)
+     *
+     * @param integer $idUsuario Id del usuario a listar la información
+     * @return void
+     */
+    public function verUsuario(int $idUsuario)
     {
         if (isset($idUsuario) && !empty($idUsuario)) {
             $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         }
+        $this->validarMd5($request, $usuario->getIdtiendaFk()->getIdtienda());
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
         return new JsonResponse($usuario);
     }
 
+    /**
+     * Muestra la información del usuario logado
+     *
+     * @param Request $request
+     * @return void
+     */
     public function verPerfil(Request $request)
     {
-        //TODO coger idUsuario desde el token
         $idUsuario = $request->query->get("idusuario");
         if (isset($idUsuario) && !empty($idUsuario)) {
             $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findOneByIdusuario($idUsuario);
         }
+        $this->validarMd5($request, $usuario->getIdtiendaFk()->getIdtienda());
         $usuario = $this->serializer->normalize($usuario, null, ["groups" => "public"]);
         return new JsonResponse($usuario);
     }
+
+    
 }
