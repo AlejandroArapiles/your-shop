@@ -8,6 +8,9 @@
         <div class="card-body">
             
             <form class="user col-xl-8" method="post">
+            {% if notification is defined %}
+            {% include 'helper/notification.html.twig' %}
+            {% endif %}
             <div class="form-group">
                 <label class="h6 text-gray-900 mb-4" for="nombre">Nombre</label>
                 <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" 

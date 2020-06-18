@@ -9,6 +9,7 @@ use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -61,17 +62,21 @@ class ProductoController extends AuthAbstractController {
             return $this->redirectToRoute('clientLogin');
         }
         if ($request->getMethod() == 'POST') {
-            $producto = new Producto();
-            $producto->setNombreproducto($request->request->get('nombre'));
-            $producto->setDescripcion($request->request->get('descripcion'));
-            $producto->setPrecio($request->request->get('precio'));
-            $producto->setActivo($request->request->get('activo'));
-            $producto->setCantidad($request->request->get('cantidad'));
-            $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $this->sessionManager->get('user')['idTienda']));
+            try  {
+                $producto = new Producto();
+                $producto->setNombreproducto($request->request->get('nombre'));
+                $producto->setDescripcion($request->request->get('descripcion'));
+                $producto->setPrecio($request->request->get('precio'));
+                $producto->setActivo($request->request->get('activo'));
+                $producto->setCantidad($request->request->get('cantidad'));
+                $producto->setIdtiendaFk($this->entityManager->getReference('App\Entity\Tienda', $this->sessionManager->get('user')['idTienda']));
 
-            $this->entityManager->persist($producto);
-            $this->entityManager->flush();
-
+                $this->entityManager->persist($producto);
+                $this->entityManager->flush();
+            } catch (UniqueConstraintViolationException $e) {
+                $data['notification'] = ["type" => "danger", "message" => "El producto ya existe."];
+                return $this->render('producto/view.html.twig', $data);
+            }
             return $this->redirectToRoute('clientListProductos', ['idTienda' => $producto->getIdTiendaFk()->getIdtienda()]);
         } else {
             return $this->render('producto/view.html.twig');

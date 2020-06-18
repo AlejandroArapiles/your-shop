@@ -10,6 +10,7 @@ use App\Controller\AuthAbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -55,11 +56,13 @@ class UsuarioController extends AuthAbstractController {
      * @param Request $request
      * @return void
      */
-    public function crearUsuario(Request $request){
+    public function crearUsuario(Request $request) {
+        $data = [];
         if (!$this->authService->validateUserLogged()) {
             return $this->redirectToRoute('clientLogin');
         }
         if ($request->getMethod() == 'POST') {
+            try {
             $usuario = new Usuario();
             $usuario->setNombreusuario($request->request->get('nombre'));
             $usuario->setPassword(md5($request->request->get('password')));
@@ -68,7 +71,10 @@ class UsuarioController extends AuthAbstractController {
 
             $this->entityManager->persist($usuario);
             $this->entityManager->flush();
-
+            } catch (UniqueConstraintViolationException $e) {
+                $data['notification'] = ["type" => "danger", "message" => "El usuario ya existe."];
+                return $this->render('usuario/view.html.twig', $data);
+            }
             return $this->redirectToRoute('clientListUsuarios', ['idTienda' => $usuario->getIdTiendaFk()->getIdtienda()]);
         } else {
             return $this->render('usuario/view.html.twig');
@@ -96,7 +102,7 @@ class UsuarioController extends AuthAbstractController {
             $usuario->setNombreusuario($request->request->get('nombre'));
             $usuario->setRol($request->request->get('rol'));
             if (!empty($request->request->get('password'))) {
-                $usuario->setPassword($request->request->get('password'));
+                $usuario->setPassword(md5($request->request->get('password')));
             }
 
             $this->entityManager->persist($usuario);
@@ -151,21 +157,25 @@ class UsuarioController extends AuthAbstractController {
     public function registrarUsuarioTienda(Request $request)
     {
         if ($request->getMethod() == 'POST') {
-            $tienda = new Tienda();
-            $tienda->setNombretienda($request->request->get('nTienda'));
-            $tienda->setCif($request->request->get('cif'));
-            $tienda->setCorreoContacto($request->request->get('correo'));
-            $this->entityManager->persist($tienda);
+            try {
+                $tienda = new Tienda();
+                $tienda->setNombretienda($request->request->get('nTienda'));
+                $tienda->setCif($request->request->get('cif'));
+                $tienda->setCorreoContacto($request->request->get('correo'));
+                $this->entityManager->persist($tienda);
 
-            $usuario = new Usuario();
-            $usuario->setNombreusuario($request->request->get('nUsuario'));
-            $usuario->setPassword(md5($request->request->get('password')));
-            $usuario->setRol('admin');
-            $usuario->setIdtiendaFk($tienda);
+                $usuario = new Usuario();
+                $usuario->setNombreusuario($request->request->get('nUsuario'));
+                $usuario->setPassword(md5($request->request->get('password')));
+                $usuario->setRol('admin');
+                $usuario->setIdtiendaFk($tienda);
 
-            $this->entityManager->persist($usuario);
-            $this->entityManager->flush();
-            
+                $this->entityManager->persist($usuario);
+                $this->entityManager->flush();
+            } catch (UniqueConstraintViolationException $e) {
+                $data['notification'] = ["type" => "danger", "message" => "El usuario o la tienda ya existe."];
+                return $this->render('usuario/registro.html.twig', $data);
+            }
             $this->authService->login($usuario);
             return $this->redirectToRoute('clientListProductos', ['idTienda' => $tienda->getIdtienda()]);
         }
